@@ -1,5 +1,8 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.demo.dto.DemoDTO;
 
 // @Controller: 해당 클래스를 컨트롤러 클래스로 스프링빈에 등록
-// 스프링빙: 스프링이 관리해주는 자바 객체
+// 스프링빈: 스프링이 관리해주는 자바 객체
 @Controller
 public class HomeController {
 	// / 주소에 대해 get 요청이 front로 부터 오면 아래 메서드가 실행
@@ -49,6 +52,7 @@ public class HomeController {
 		return "form1";
 	}
 	
+	// front -> back : RequestParam
 	@PostMapping("/form1-param")
 	public String form1param(@RequestParam("p1") String p1, @RequestParam("p2") String p2) {
 		System.out.println("p1 = " + p1);
@@ -56,6 +60,7 @@ public class HomeController {
 		return "index";
 	}
 	
+	// back -> front : model
 	@GetMapping("/model1")
 	public String model1(Model model) {
 		String str1 = "오늘은 금요일";
@@ -90,5 +95,18 @@ public class HomeController {
 		System.out.println(demoDTO);
 		model.addAttribute("demo", demoDTO);
 		return "model3";
+	}
+	
+	@GetMapping("/model4")
+	public String model4(Model model) {
+		List<DemoDTO> list = new ArrayList<>();
+		for(int i =1; i <= 10; i++) {
+			DemoDTO demoDTO = new DemoDTO();
+			demoDTO.setName("name" + i);
+			demoDTO.setAge(i);
+			list.add(demoDTO);
+		}
+		model.addAttribute("list", list);
+		return "model4";
 	}
 }
