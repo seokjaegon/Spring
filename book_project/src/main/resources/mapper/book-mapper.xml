@@ -3,9 +3,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
         
 <mapper namespace="Book">
+<!-- parameterType, resultType 생략가능 -->
 	<insert id="save" parameterType="com.example.book.dto.BookDTO">
 		insert into book_table(bookName, bookAuthor, bookPublisher, bookPrice)
-			value(#{bookName}, #{bookAuthor}, #{bookPublisher}, #{bookPrice})
+			values(#{bookName}, #{bookAuthor}, #{bookPublisher}, #{bookPrice})
 	</insert>
 	
 	<select id="findAll" resultType="com.example.book.dto.BookDTO">
